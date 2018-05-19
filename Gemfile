@@ -65,3 +65,5 @@ gem 'jquery-rails'
 gem 'react_on_rails', '~> 7.0', '>= 7.0.1'
 
 gem 'haml'
+
+gem 'mini_racer', platforms: :ruby

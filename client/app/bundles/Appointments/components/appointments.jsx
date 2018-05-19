@@ -1,29 +1,36 @@
-var Appointments = React.createClass({
+import React from 'react';
+import AppointmentForm from './appointment_form';
+import { AppointmentsList } from './appointments_list';
 
-	getInitialState: function(){
-		return{
+import update from 'immutability-helper';
+
+export default class Appointments extends React.Component{
+
+	constructor(props, railsContext){
+		super(props)
+		this.state = {
 			appointments: this.props.appointments,
 			title: 'Team meeting',
 			appt_time:'Tomorrow at 9am'
 
 		}
-	},
+	}
 
-	handleUserInput: function(obj){
+	handleUserInput (obj){
 		this.setState(obj);
-	},
+	}
 
-	handleFormSubmit: function(){
+	handleFormSubmit (){
 		var appointment = {title: this.state.title, appointment_time: this.state.appt_time};
 		$.post('/appointments',
 			{appointment: appointment})
-		.done(function(data){
+		.done((data) => {
 
 				this.addNewAppointment(data);
-			}.bind(this));
-	},
+			});
+	}
 
-	addNewAppointment: function(appointment){
+	addNewAppointment (appointment){
 		//var appointments = React.addons.update(this.state.appointments, {$push: [appointment]});
 		let appointments = this.state.appointments.push(appointment)
     
@@ -35,18 +42,20 @@ var Appointments = React.createClass({
 			appointments: appointments
 		})
 
-	},
+	}
 
 
 
-	render: function(){
+
+
+	render (){
 		return (
 			<div>
 
 			<AppointmentForm input_title={this.state.title} 
 			                 input_appt_time={this.state.appt_time}
-			                 onUserInput = {this.handleUserInput}
-			                 onFormSubmit={this.handleFormSubmit} />
+			                 onUserInput = {(obj) => this.handleUserInput(obj)}
+			                 onFormSubmit={() => this.handleFormSubmit()} />
 
 
 
@@ -55,4 +64,4 @@ var Appointments = React.createClass({
 			</div>
 			)
 	}
-});
+};

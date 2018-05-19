@@ -1,14 +1,11 @@
- 
+import React from 'react';
 
-var AppointmentsList = React.createClass({
-	render: function(){
+import { Appointment } from './appointment' 
 
+export const AppointmentsList = ({appointments}) => 
 
-
-
-		return(
                    <div>
-                 {this.props.appointments.map(function(appointment){
+                 {appointments.map(function(appointment){
             	return (
 
                   <Appointment appointment={appointment} key={appointment.id} />
@@ -20,11 +17,6 @@ var AppointmentsList = React.createClass({
                 </div>
 
 
-
-			)
-	}
-
-});
 
 
 
